@@ -1,0 +1,154 @@
+User Manual for Ethical Hacking Lab Penetration Testing Script
+
+1. Introduction
+Welcome to the Ethical Hacking Lab Penetration Testing Script! This script is designed to simulate various common penetration testing attacks in a controlled and authorized environment. It includes methods for performing:
+
+Nmap Scanning: Network vulnerability scanning
+SQL Injection: Testing for vulnerabilities in web applications
+XSS (Cross-Site Scripting): Checking for cross-site scripting vulnerabilities
+SSH Brute Force Attack: Simulating an SSH password guessing attack
+This manual will guide you through installing, configuring, and running the script.
+
+2. Prerequisites
+Before using the Ethical Hacking Lab Penetration Testing Script, ensure your environment meets the following requirements:
+
+Operating System: Linux (Ubuntu, Kali Linux, etc.), Windows (with WSL or Cygwin), or macOS
+
+Python Version: Python 3.6 or higher
+
+Python Libraries:
+
+requests (for HTTP requests)
+paramiko (for SSH communication)
+beautifulsoup4 (for HTML parsing)
+subprocess (for running Nmap)
+To install required Python libraries, run the following commands:
+
+bash
+Copy code
+pip install requests paramiko beautifulsoup4
+Nmap: Ensure Nmap is installed on your system. To install Nmap:
+
+On Linux (Ubuntu/Debian):
+
+bash
+Copy code
+sudo apt install nmap
+On macOS:
+
+bash
+Copy code
+brew install nmap
+On Windows: Download and install from Nmap.org.
+
+Permissions: You may need root or administrator privileges for certain actions, such as running Nmap or performing SSH brute force attacks.
+
+3. Setup and Configuration
+Download the Script: Download the Ethical Hacking Lab script from your source repository.
+
+Configure Target Information: Open the script (ethical_hacking_lab.py) in a text editor and configure the following:
+
+Target Web Application (for SQL Injection and XSS attacks):
+
+Replace http://example.com/login with your target web application's URL.
+Ensure the application has vulnerable endpoints (you can use a testing site like DVWA or a local vulnerable app).
+Target SSH (for SSH brute force):
+
+Replace 192.168.1.10 with the IP address of your target machine that has SSH enabled.
+Network for Nmap:
+
+Replace 192.168.1.0/24 with the target network for the Nmap vulnerability scan.
+Network Setup:
+Ensure that the target machine(s) are within the same network or reachable via the configured IPs and that you have authorization to test them.
+
+4. Running the Script
+Once everything is configured, follow these steps to execute the script:
+
+Open Terminal/Command Prompt.
+
+Navigate to the script's directory: Use the cd command to navigate to the folder containing ethical_hacking_lab.py.
+
+Run the Script: To start the penetration testing, simply run the following command:
+
+bash
+Copy code
+python ethical_hacking_lab.py
+Monitor the Output: The script will begin performing the following tasks:
+
+SQL Injection: The script attempts to inject SQL payloads into the login form and reports any vulnerabilities.
+XSS Attack: The script tests the target for cross-site scripting by injecting common XSS payloads.
+SSH Brute Force: The script will attempt to brute-force the SSH login for the target machine using common passwords.
+Nmap Scan: The script runs an Nmap scan on the network to identify open ports and vulnerabilities.
+5. Understanding the Output
+The script will generate a JSON report (attack_report.json) that logs all the actions taken and their results.
+
+SQL Injection: Logs whether SQL injection was successful or not.
+XSS: Logs potential XSS vulnerabilities found in the target.
+SSH Brute Force: Logs if the brute force attack was successful, including any cracked passwords.
+Nmap Scan: Lists open ports and potential vulnerabilities detected on the target network.
+You can view the JSON report by opening the attack_report.json file in any text editor or use a JSON viewer.
+
+6. Script Output Examples
+Here are some examples of what the output could look like:
+
+SQL Injection Attack:
+
+json
+Copy code
+{
+  "attack_type": "SQL Injection",
+  "target": "http://example.com/login",
+  "status": "Success",
+  "vulnerable_parameter": "username"
+}
+XSS Attack:
+
+json
+Copy code
+{
+  "attack_type": "XSS",
+  "target": "http://example.com/contact",
+  "status": "Potential Vulnerability Detected",
+  "payload": "<script>alert('XSS')</script>"
+}
+SSH Brute Force:
+
+json
+Copy code
+{
+  "attack_type": "SSH Brute Force",
+  "target_ip": "192.168.1.10",
+  "status": "Success",
+  "cracked_password": "123456"
+}
+Nmap Scan:
+
+json
+Copy code
+{
+  "attack_type": "Nmap Scan",
+  "target": "192.168.1.0/24",
+  "open_ports": [22, 80, 443],
+  "vulnerabilities": ["CVE-2020-1234"]
+}
+7. Ethical Guidelines
+It is essential to follow ethical guidelines and legal boundaries when conducting penetration tests. Here are some key points:
+
+Permission: Always ensure that you have explicit authorization to test any system or network.
+Controlled Environment: Conduct all tests in a lab environment or on machines where you have full control and permission to test.
+Privacy and Security: Handle any collected data responsibly. Do not use the results for malicious purposes or disclose vulnerabilities without the consent of the affected parties.
+8. Troubleshooting
+If you encounter issues when running the script, here are a few things to check:
+
+Permissions: Ensure that you have the necessary privileges to execute Nmap and SSH brute force actions.
+Dependencies: Verify that all required libraries (requests, paramiko, beautifulsoup4) and Nmap are installed correctly.
+Target Configuration: Double-check that the target IPs and URLs are correct and accessible.
+Errors in Script Execution: Review any error messages printed in the terminal for more specific information on issues. Consider increasing verbosity in paramiko and requests for debugging.
+9. Future Enhancements
+You can enhance this script by adding more attack vectors and improving its reporting features:
+
+Integrate Metasploit for more advanced exploit testing.
+Add more attack types: Cross-Site Request Forgery (CSRF), Command Injection, etc.
+Improve Reporting: Integrate a graphical interface for displaying results or automatically generate detailed attack reports in HTML or PDF format.
+10. Conclusion
+Congratulations on setting up and running your Ethical Hacking Lab Penetration Testing Script! This tool allows you to simulate common network attacks and vulnerabilities to better understand the security landscape. Always remember to follow ethical guidelines and conduct testing in a responsible manner.
